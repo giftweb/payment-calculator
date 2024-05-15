@@ -15,7 +15,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Run a multi-line script
+      - name: Install deps and deploy
         run: |
-          npm i,
+          npm install,
           npm run deploy.
