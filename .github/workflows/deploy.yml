@@ -1,18 +1,25 @@
-name: React app deployment
+name: CI
 
 on:
   push:
-    branches: [ main ]
+    branches: [ "main" ]
   pull_request:
-    branches: [ main ]
+    branches: [ "main" ]
+
+  workflow_dispatch:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-    
-    steps:
-    - uses: actions/checkout@v2
 
-    - name: Deploy react app to github pages
-      uses: tanwanimohit/deploy-react-to-ghpages@v1.0.2
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run a multi-line script
+        run: |
+          git config --global user.email "${{ secrets.EMAIL }}"
+          git config --global user.name "${{ secrets.NAME }}"
+          npm install
+          npm run deploy
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
